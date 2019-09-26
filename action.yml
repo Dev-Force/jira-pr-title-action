@@ -1,10 +1,27 @@
+# name: 'Your name here'
+# description: 'Provide a description here'
+# author: 'Your name or organization here'
+# inputs:
+#   myInput:              # change this
+#     description: 'input description here'
+#     default: 'default value if applicable'
+# runs:
+#   using: 'node12'
+#   main: 'lib/main.js'
+
+
 name: 'Your name here'
 description: 'Provide a description here'
-author: 'Your name or organization here'
-inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+# inputs:
+#   who-to-greet:  # id of input
+#     description: 'Who to greet'
+#     required: true
+#     default: 'World'
+# outputs:
+#   time: # id of output
+#     description: 'The time we greeted you'
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  # args:
+  #   - ${{ inputs.who-to-greet }}

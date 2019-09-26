@@ -1,4 +1,4 @@
-import * as core from '@actions/core';
+import core = require('@actions/core');
 import toArray from 'await-to-js';
 import { context } from '@actions/github';
 import { initJiraAuth } from './jira/auth';

@@ -1,18 +1,33 @@
 import * as core from '@actions/core';
-import {wait} from './wait'
+import toArray from 'await-to-js';
+import { context } from '@actions/github';
+import { initJiraAuth } from './jira/auth';
+import { validatePRTitle } from './jira/validator';
+import JiraClient = require('jira-connector');
+import _ from 'lodash';
+import util from 'util';
+
+export type EnvMap = {
+  [key: string]: string 
+}
 
 async function run() {
-  try {
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+  const {
+    JIRA_HOST: host,
+    JIRA_USERNAME: username,
+    JIRA_PASSWORD: password,
+  } = <EnvMap> process.env;
 
-    core.debug((new Date()).toTimeString())
-    await wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+  const jira: JiraClient = await initJiraAuth(host, username, password);
+  const getIssue: (input: any) => Promise<void> = util.promisify(jira.issue.getIssue).bind(jira.issue);
 
-    core.setOutput('time', new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
+  const prTitle: string = _.get(context, 'payload.pull_request.title');
+
+  const [err] = await toArray(
+    validatePRTitle(prTitle, getIssue)
+  );
+  if (err) {
+    core.setFailed(`PR title validation failed: ${err}`)
   }
 }
 

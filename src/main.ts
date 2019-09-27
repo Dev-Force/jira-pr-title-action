@@ -27,7 +27,6 @@ async function run() {
     validatePRTitle(prTitle, getIssue)
   );
   if (err) {
-    core.setOutput('OUTPUT_PRTITLECHECK.title', 'OMG KAI 3 LOL')
     core.setFailed(`PR title validation failed: ${err}`)
   }
 }

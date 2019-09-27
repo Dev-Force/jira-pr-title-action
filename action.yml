@@ -10,8 +10,10 @@
 #   main: 'lib/main.js'
 
 
-name: 'MPLE NAME'
-description: 'MPLE DESCRIPTION'
+
+name: 'Trap-bot'
+description: 'Trap-bot description'
+author: 'Apostolos Tsaganos'
 # inputs:
 #   who-to-greet:  # id of input
 #     description: 'Who to greet'
@@ -24,3 +26,6 @@ runs:
   image: 'Dockerfile'
   # args:
   #   - ${{ inputs.who-to-greet }}
+branding:
+  icon: 'edit-3'
+  color: 'blue'

@@ -8,7 +8,7 @@ import _ from 'lodash';
 import util from 'util';
 
 export type EnvMap = {
-  [key: string]: string 
+  [key: string]: string
 }
 
 async function run() {
@@ -16,7 +16,7 @@ async function run() {
     JIRA_HOST: host,
     JIRA_USERNAME: username,
     JIRA_PASSWORD: password,
-  } = <EnvMap> process.env;
+  } = <EnvMap>process.env;
 
   const jira: JiraClient = await initJiraAuth(host, username, password);
   const getIssue: (input: any) => Promise<void> = util.promisify(jira.issue.getIssue).bind(jira.issue);
@@ -27,8 +27,8 @@ async function run() {
     validatePRTitle(prTitle, getIssue)
   );
   if (err) {
+    core.setOutput('title','OMG KAI 3 LOL')
     core.setFailed(`PR title validation failed: ${err}`)
-    core.error('PR title form should be in a structure similar to: <BOARD-NUMBER> <Title>')
   }
 }
 

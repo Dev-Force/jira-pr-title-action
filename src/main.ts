@@ -28,6 +28,7 @@ async function run() {
   );
   if (err) {
     core.setFailed(`PR title validation failed: ${err}`)
+    core.error('PR title form should be in a structure similar to: <BOARD-NUMBER> <Title>')
   }
 }
 
